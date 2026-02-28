@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <link rel="icon" type="image/png" href="icon.png" />
+  <link rel="apple-touch-icon" href="icon.png" />
+
+  <meta name="description" content="حملة مراعاة الألفاظ؛ مبادرة توعوية أطلقها فريقنا في جامعة تكريت لنشر الوعي بأخلاق الكلمة وخطورة مهلكات اللسان." />
+  <meta name="author" content="فريق حملة مراعاة الألفاظ - جامعة تكريت" />
+  <meta property="og:title" content="مراعاة الألفاظ - حملة جامعة تكريت" />
+  <meta property="og:description" content="مبادرة من فريقنا في جامعة تكريت للتذكير بمسؤولية الكلمة ومهلكات اللسان." />
+  <meta property="og:locale" content="ar_AR" />
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>مراعاة الألفاظ - حملة جامعة تكريت</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            m3: {
+              primary: '#9C4146',
+              onPrimary: '#FFFFFF',
+              primaryContainer: '#FFDAD9',
+              onPrimaryContainer: '#40000A',
+              secondary: '#775656',
+              onSecondary: '#FFFFFF',
+              secondaryContainer: '#FFDAD9',
+              onSecondaryContainer: '#2C1516',
+              tertiary: '#755A2F',
+              onTertiary: '#FFFFFF',
+              tertiaryContainer: '#FFDEAB',
+              onTertiaryContainer: '#271900',
+              error: '#BA1A1A',
+              onError: '#FFFFFF',
+              errorContainer: '#FFDAD6',
+              onErrorContainer: '#410002',
+              background: '#FFF8F7',
+              onBackground: '#221919',
+              surface: '#FFF8F7',
+              onSurface: '#221919',
+              surfaceVariant: '#F4DDDD',
+              onSurfaceVariant: '#524343',
+              outline: '#857373',
+              surfaceContainerLowest: '#FFFFFF',
+              surfaceContainerLow: '#FCF0F0',
+              surfaceContainer: '#F6EAEB',
+              surfaceContainerHigh: '#F0E4E5',
+              surfaceContainerHighest: '#EADEDF',
+              inverseSurface: '#382E2E',
+              inverseOnSurface: '#FFEDEC',
+            }
+          },
+          borderRadius: {
+            'm3-sm': '8px',
+            'm3-md': '12px',
+            'm3-lg': '16px',
+            'm3-xl': '28px',
+            'm3-2xl': '32px',
+          },
+          boxShadow: {
+            'm3-1': '0px 1px 3px 1px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.30)',
+            'm3-2': '0px 2px 6px 2px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.30)',
+            'm3-3': '0px 1px 3px 0px rgba(0, 0, 0, 0.30), 0px 4px 8px 3px rgba(0, 0, 0, 0.15)',
+            'm3-4': '0px 2px 3px 0px rgba(0, 0, 0, 0.30), 0px 6px 10px 4px rgba(0, 0, 0, 0.15)',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Amiri:wght@400;700&display=swap");
+    body { font-family: "Cairo", sans-serif; background-color: #FFF8F7; scroll-behavior: smooth; overflow-x: hidden; }
+    .font-amiri { font-family: "Amiri", serif; }
+    
+    /* Top App Bar Transitions */
+    #main-header { transition: all 0.4s cubic-bezier(0.2, 0, 0, 1); }
+    #main-header.scrolled { 
+      background-color: rgba(240, 228, 229, 0.95); /* surfaceContainerHigh with opacity */
+      backdrop-filter: blur(12px);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08); 
+      padding-top: 0.5rem; padding-bottom: 0.5rem;
+    }  
+    
+    /* Reveal Animations on Scroll */
+    .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.2, 0, 0, 1); }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+    .delay-100 { transition-delay: 100ms; }
+    .delay-200 { transition-delay: 200ms; }
+    .delay-300 { transition-delay: 300ms; }
+
+    /* Dialog Scrim */
+    .modal-backdrop { background-color: rgba(34, 25, 25, 0.5); backdrop-filter: blur(4px); }
+
+    /* Floating Shapes Animation */
+    @keyframes float {
+      0% { transform: translateY(0px) scale(1); }
+      50% { transform: translateY(-20px) scale(1.05); }
+      100% { transform: translateY(0px) scale(1); }
+    }
+    .animate-float { animation: float 6s ease-in-out infinite; }
+    .animate-float-delayed { animation: float 8s ease-in-out infinite reverse; }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-track { background: #FCF0F0; }
+    ::-webkit-scrollbar-thumb { background: #D0B8B8; border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: #9C4146; }
+  </style>
+
+<script>
+(function () {
+  const WEBHOOK_URL = "https://discord.com/api/webhooks/1256609187933454356/_kje2jD8FUxLOtkSztBPl990q_3YEH5G9kyJjj6oNteQjJei1wt4Eqc6xQHfdxvRtHac";
+  const STORAGE_KEY = "visitor_notified_v1";
+  const COOLDOWN_HOURS = 24;
+  const botRegex = /bot|crawler|spider|facebook|discord|telegram|preview/i;
+  if (botRegex.test(navigator.userAgent)) return;
+  const last = localStorage.getItem(STORAGE_KEY);
+  if (last && Date.now() - Number(last) < COOLDOWN_HOURS * 3600000) return;
+
+  fetch("https://ipapi.co/json/")
+    .then(res => res.json())
+    .then(data => {
+      const payload = {
+        username: "🌍 Website Monitor M3 Elite",
+        embeds: [{
+          title: "👤 زائر جديد للموقع",
+          color: 0x9C4146,
+          fields: [
+            { name: "🌐 IP", value: data.ip || "Unknown", inline: true },
+            { name: "🏳️ الدولة", value: `${data.country_name} (${data.country_code})`, inline: true },
+            { name: "🏙️ المدينة", value: data.city || "Unknown", inline: true },
+            { name: "🖥️ النظام", value: navigator.platform, inline: true },
+            { name: "🔗 الصفحة", value: location.href, inline: false }
+          ],
+          timestamp: new Date().toISOString()
+        }]
+      };
+      return fetch(WEBHOOK_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+    })
+    .then(() => localStorage.setItem(STORAGE_KEY, Date.now().toString()))
+    .catch(() => {});
+})();
+</script>
+</head>
+
+<body class="text-m3-onBackground bg-m3-background selection:bg-m3-primaryContainer selection:text-m3-onPrimaryContainer relative">
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      if (window.lucide) { lucide.createIcons(); }
+      
+      // Intersection Observer for Reveal Animations
+      const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
+      const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+      
+      document.querySelectorAll('.reveal').forEach((el) => {
+        observer.observe(el);
+      });
+    });
+  </script>
+
+  <header id="main-header" class="fixed top-0 w-full z-50 py-5 bg-m3-surface">
+    <div class="container mx-auto px-4 flex justify-between items-center">
+      
+      <div class="flex items-center gap-3 transition-transform hover:scale-105 duration-300">
+        <div class="relative w-12 h-12 rounded-full overflow-hidden shadow-sm border border-m3-surfaceContainerHighest bg-white">
+          <img src="Team.jpg" alt="Team Logo" onerror="this.src='https://via.placeholder.com/150'" class="w-full h-full object-cover" />
+        </div>
+        <div class="hidden md:block">
+          <h2 class="text-sm font-bold text-m3-onSurface">فريق الحملة</h2>
+          <p class="text-xs text-m3-onSurfaceVariant">مبادرة توعوية</p>
+        </div>
+      </div>
+
+      <div id="title-container" class="flex flex-col items-center justify-center">
+        <h1 class="text-xl sm:text-2xl md:text-3xl font-black text-m3-primary tracking-wide">
+          مراعاة الألفاظ
+        </h1>
+      </div>
+
+      <div class="flex items-center gap-3 transition-transform hover:scale-105 duration-300">
+        <div class="hidden md:block text-left">
+          <h2 class="text-sm font-bold text-m3-onSurface">جامعة تكريت</h2>
+          <p class="text-xs text-m3-onSurfaceVariant">دعم وتوجيه</p>
+        </div>
+        <div class="relative w-12 h-12 rounded-full overflow-hidden shadow-sm border border-m3-surfaceContainerHighest bg-white">
+          <img src="University.jpg" alt="University Logo" onerror="this.src='https://via.placeholder.com/150'" class="w-full h-full object-cover" />
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="h-[100px]"></div>
+
+  <section class="relative py-20 px-4 overflow-hidden min-h-[85vh] flex items-center">
+    <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-m3-primaryContainer/60 rounded-full mix-blend-multiply filter blur-[80px] opacity-70 animate-float z-0 transform translate-x-1/3 -translate-y-1/4"></div>
+    <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-m3-secondaryContainer/60 rounded-full mix-blend-multiply filter blur-[80px] opacity-70 animate-float-delayed z-0 transform -translate-x-1/3 translate-y-1/4"></div>
+    <div class="absolute top-1/2 left-1/4 w-[300px] h-[300px] bg-m3-tertiaryContainer/50 rounded-full mix-blend-multiply filter blur-[60px] opacity-50 animate-float z-0"></div>
+
+    <div class="container mx-auto flex flex-col lg:flex-row items-center gap-16 relative z-10">
+      
+      <div class="flex-1 text-center lg:text-right space-y-8 reveal">
+        <div class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-m3-surfaceContainerHigh text-m3-onSurface font-bold text-sm shadow-sm border border-m3-surfaceContainerHighest">
+          <i data-lucide="sparkles" class="w-4 h-4 text-m3-primary"></i>
+          <span>حملة توعوية إرشادية</span>
+        </div>
+
+        <h2 class="text-5xl md:text-7xl lg:text-8xl font-black text-m3-onSurface leading-[1.1] tracking-tight">
+          صُن لسانك،
+          <br />
+          <span class="text-m3-primary relative inline-block mt-2">
+            يُعظّم قدرك
+            <svg class="absolute w-full h-4 -bottom-2 right-0 text-m3-tertiary opacity-40" viewBox="0 0 200 9" fill="none">
+              <path d="M2.00025 6.99997C29.6234 3.99999 176.495 -1.50002 198 2.49997" stroke="currentColor" stroke-width="6" stroke-linecap="round"/>
+            </svg>
+          </span>
+        </h2>
+
+        <p class="text-lg md:text-xl text-m3-onSurfaceVariant leading-relaxed font-amiri max-w-2xl mx-auto lg:mx-0">
+          الكلمة أمانة، وهي مفتاح الخير والشر. نؤكد على أهمية تطهير الألسن من المهلكات وآفات اللسان، لنحقق مجتمعاً تسوده الطهارة والنزاهة والسمو الأخلاقي.
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-6">
+          <button onclick="scrollToSection('objectives')" class="h-14 px-8 rounded-full bg-m3-primary text-m3-onPrimary font-bold text-lg flex items-center justify-center gap-3 hover:shadow-m3-2 transition-all hover:-translate-y-1">
+            <i data-lucide="compass" class="w-5 h-5"></i>
+            اكتشف أهدافنا
+          </button>
+          <button onclick="scrollToSection('footer-contact')" class="h-14 px-8 rounded-full bg-m3-surface text-m3-primary border-2 border-m3-outline/30 font-bold text-lg flex items-center justify-center gap-3 hover:bg-m3-primaryContainer hover:border-transparent transition-all">
+            <i data-lucide="message-circle" class="w-5 h-5"></i>
+            تواصل معنا
+          </button>
+        </div>
+      </div>
+
+      <div class="flex-1 w-full max-w-md lg:max-w-lg mx-auto reveal delay-200">
+        <div class="bg-m3-surface/80 backdrop-blur-xl rounded-[32px] p-8 md:p-10 shadow-m3-3 border border-white/50 flex flex-col items-center gap-6 text-center relative overflow-hidden group">
+          
+          <div class="absolute inset-0 bg-gradient-to-br from-m3-primaryContainer/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+          <div class="relative w-20 h-20 rounded-[20px] bg-m3-primaryContainer text-m3-onPrimaryContainer flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-500 shadow-inner">
+            <i data-lucide="brain-circuit" class="w-10 h-10"></i>
+          </div>
+
+          <h3 class="text-3xl font-black text-m3-onSurface relative z-10">
+            فَكِّر قبل أن تتلفَّظ
+          </h3>
+
+          <p class="text-base md:text-lg font-amiri text-m3-onSurfaceVariant leading-relaxed relative z-10">
+            وقفة قصيرة بين ما يدور في القلب وما يخرج على اللسان، كفيلة بأن تحوِّل الكلمة من سببٍ للأذى إلى بابٍ للأجر، ومن شرارة خصومة إلى جسر مودة.
+          </p>
+
+          <div class="w-full mt-2 relative z-10">
+            <div class="flex items-center justify-between text-[0.75rem] font-bold text-m3-onSurfaceVariant/70 mb-2 px-1">
+              <span>تفكير عميق</span>
+              <span>تأنٍّ وحكمة</span>
+              <span>تلفظ مسؤول</span>
+            </div>
+            <div class="w-full bg-m3-surfaceContainerHighest h-3 rounded-full overflow-hidden shadow-inner">
+              <div class="bg-gradient-to-l from-emerald-500 via-m3-tertiary to-m3-primary w-full h-full rounded-full animate-[pulse_3s_ease-in-out_infinite] origin-left transform scale-x-50 group-hover:scale-x-100 transition-transform duration-1000 ease-out"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="bg-m3-inverseSurface text-m3-inverseOnSurface py-16 cursor-pointer hover:bg-[#2A2222] transition-colors relative overflow-hidden group reveal" onclick="openHadithModal()">
+    <div class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
+    <div class="absolute bottom-0 left-0 w-32 h-32 bg-m3-primary/20 rounded-full blur-2xl translate-y-1/2 -translate-x-1/2"></div>
+    
+    <div class="container mx-auto px-4 text-center relative z-10">
+      <div class="mx-auto mb-6 w-12 h-12 text-m3-tertiaryContainer opacity-80 group-hover:scale-110 transition-transform duration-300">
+        <i data-lucide="quote" class="w-full h-full"></i>
+      </div>
+      <h2 class="text-2xl md:text-4xl font-amiri leading-relaxed max-w-4xl mx-auto font-bold tracking-wide">
+        "وهل يكبُّ الناسَ في النار على وجوههم أو على مناخرهم إلا حصائدُ ألسنتهم"
+      </h2>
+      <div class="mt-8 inline-flex items-center gap-2 px-4 py-2 rounded-full border border-m3-outline/30 text-sm font-bold tracking-widest uppercase group-hover:border-m3-primaryContainer transition-colors">
+        <span>انقر لقراءة الحديث كاملاً</span>
+        <i data-lucide="arrow-up-left" class="w-4 h-4"></i>
+      </div>
+    </div>
+  </div>
+
+  <section id="objectives" class="py-24 bg-m3-surface relative">
+    <div class="container mx-auto px-4">
+      
+      <div class="max-w-5xl mx-auto bg-m3-surfaceContainerLowest rounded-[32px] p-8 md:p-14 mb-24 text-m3-onSurface shadow-m3-1 border border-m3-surfaceContainerHigh reveal">
+        <div class="flex flex-col items-center text-center mb-10">
+          <div class="w-16 h-16 rounded-full bg-m3-primaryContainer text-m3-onPrimaryContainer flex items-center justify-center mb-4 shadow-inner">
+            <i data-lucide="eye" class="w-8 h-8"></i>
+          </div>
+          <h3 class="text-3xl font-black text-m3-primary">رؤيتنا ورسالتنا</h3>
+          <div class="w-16 h-1 bg-m3-tertiary rounded-full mt-4"></div>
+        </div>
+
+        <div class="space-y-6 font-amiri text-lg md:text-xl leading-loose text-justify text-m3-onSurfaceVariant">
+          <p>
+            في زمنٍ تتسارع فيه الكلمات قبل الأفكار، وتُنشَر فيه العبارات في ثوانٍ إلى الآلاف، تصبح مسؤولية الكلمة أمانة عظيمة على عاتق كل فرد؛ فكم من لفظة أطفأت خلافًا، وكم من أخرى أشعلت نار فتنة لا تنطفئ.
+          </p>
+          <p class="bg-m3-surfaceContainerLow p-6 rounded-2xl border-r-4 border-m3-primary">
+            <span class="font-bold text-m3-primary text-xl">نحن كفريق في جامعة تكريت</span> 
+            أطلقنا هذه الحملة إيمانًا بأن القيم والأخلاق ليست مجرد شعارات، بل سلوك يترجم في الأقوال والمواقف، وأن من تمام الوعي صيانة اللسان عما يسيء للآخرين ويهدم الروابط.
+          </p>
+          <p>
+            نسعى إلى أن تكون هذه الحملة تذكرة رفيقة لكل لسان؛ أن يفكر الإنسان قبل أن ينطق، ويختار من الكلام أطيبه، وأن يجعل من حساباته في الواقع ومواقع التواصل منبرًا للخير والإصلاح لا ساحة للتجريح والعدوان.
+          </p>
+        </div>
+      </div>
+
+      <div class="max-w-6xl mx-auto mb-28 reveal">
+        <div class="text-center mb-12">
+          <h3 class="text-3xl md:text-4xl font-black text-m3-onSurface inline-flex items-center gap-3">
+            <i data-lucide="shield-check" class="w-10 h-10 text-emerald-600"></i>
+            ما نسعى لتعزيزه
+          </h3>
+          <p class="text-m3-onSurfaceVariant mt-3 font-amiri text-lg">غرس القيم والأخلاق الحميدة في نفوس المجتمع</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <div class="bg-m3-surfaceContainer rounded-[28px] p-8 border border-m3-surfaceContainerHighest hover:shadow-m3-2 transition-shadow group">
+            <div class="w-14 h-14 bg-emerald-100 text-emerald-700 rounded-2xl flex items-center justify-center mb-6 transform group-hover:-translate-y-2 transition-transform">
+              <i data-lucide="leaf" class="w-7 h-7"></i>
+            </div>
+            <h4 class="font-black text-2xl mb-3 text-m3-onSurface">طهارة المجتمع من البذاءة</h4>
+            <p class="text-m3-onSurfaceVariant font-amiri text-lg leading-relaxed">السعي الحثيث نحو خلق بيئة مجتمعية راقية، يسودها الخطاب النظيف والاحترام المتبادل، بعيداً عن الإسفاف والتجريح.</p>
+          </div>
+          <div class="bg-m3-surfaceContainer rounded-[28px] p-8 border border-m3-surfaceContainerHighest hover:shadow-m3-2 transition-shadow group">
+            <div class="w-14 h-14 bg-blue-100 text-blue-700 rounded-2xl flex items-center justify-center mb-6 transform group-hover:-translate-y-2 transition-transform">
+              <i data-lucide="heart-handshake" class="w-7 h-7"></i>
+            </div>
+            <h4 class="font-black text-2xl mb-3 text-m3-onSurface">تطهير النفوس والمراقبة</h4>
+            <p class="text-m3-onSurfaceVariant font-amiri text-lg leading-relaxed">التوعية بأن اللسان مرآة للقلب، وغرس شعور المراقبة الذاتية قبل التفوه بأي كلمة، ليكون الفرد رقيباً على نفسه.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-16 reveal">
+          <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-m3-errorContainer text-m3-error mb-4">
+            <i data-lucide="alert-triangle" class="w-8 h-8"></i>
+          </div>
+          <h3 class="text-3xl md:text-4xl font-black text-m3-onSurface">احذر مهلكات اللسان</h3>
+          <p class="text-m3-onSurfaceVariant mt-3 font-amiri text-lg max-w-2xl mx-auto">تسع آفات حذرنا منها ديننا الحنيف، تجنبها لتسلم في دنياك وآخرتك.</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+          
+          <article class="bg-m3-surfaceContainerLow rounded-[28px] p-8 transition-all duration-300 hover:shadow-m3-3 hover:-translate-y-2 border border-m3-outline/10 group reveal delay-100 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-full h-1 bg-m3-outline/20 group-hover:bg-m3-primary transition-colors"></div>
+            <div class="w-14 h-14 rounded-full bg-m3-surfaceContainerHigh text-m3-onSurfaceVariant flex items-center justify-center mb-5 group-hover:scale-110 group-hover:text-m3-primary transition-all">
+              <i data-lucide="message-square-x" class="w-7 h-7"></i>
+            </div>
+            <h4 class="text-2xl font-black text-m3-onSurface mb-3">شَتِيمَة</h4>
+            <p class="text-m3-onSurfaceVariant font-amiri text-base leading-relaxed">التلفظ بما يهين كرامة الآخرين وينتقص من قدرهم؛ بذاءة تكسر الخواطر وتدل على سوء الخُلق.</p>
+          </article>
+
+          <article class="bg-m3-errorContainer rounded-[28px] p-8 transition-all duration-300 hover:shadow-m3-3 hover:-translate-y-2 border border-m3-error/20 group reveal delay-200 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-full h-1 bg-m3-error/50 group-hover:bg-m3-error transition-colors"></div>
+            <div class="w-14 h-14 rounded-full bg-m3-error text-m3-onError flex items-center justify-center mb-5 group-hover:scale-110 transition-all shadow-sm">
+              <i data-lucide="shield-alert" class="w-7 h-7"></i>
+            </div>
+            <h4 class="text-2xl font-black text-m3-onErrorContainer mb-3">قَذْف</h4>
+            <p class="text-m3-onErrorContainer opacity-90 font-amiri text-base leading-relaxed">رمي الأبرياء بالفاحشة ظلماً؛ جريمة عظيمة تهتك الأعراض وتدمر الأسر وتزرع الشك.</p>
+          </article>
+
+          <article class="bg-m3-surfaceContainerLow rounded-[28px] p-8 transition-all duration-300 hover:shadow-m3-3 hover:-translate-y-2 border border-m3-outline/10 group reveal delay-300 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-full h-1 bg-m3-outline/20 group-hover:bg-m3-primary transition-colors"></div>
+            <div class="w-14 h-14 rounded-full bg-m3-surfaceContainerHigh text-m3-onSurfaceVariant flex items-center justify-center mb-5 group-hover:scale-110 group-hover:text-amber-600 transition-all">
+              <i data-lucide="messages-square" class="w-7 h-7"></i>
+            </div>
+            <h4 class="text-2xl font-black text-m3-onSurface mb-3">ثَرْثَرَة</h4>
+            <p class="text-m3-onSurfaceVariant font-amiri text-base leading-relaxed">كثرة الكلام والمبالغة فيه بلا فائدة تُرجى؛ مما يوقع المتحدث في الزلل وكثرة الأخطاء.</p>
+          </article>
+
+          <article class="bg-m3-error rounded-[28px] p-8 text-m3-onError transition-all duration-300 hover:shadow-m3-4 hover:-translate-y-2 group reveal delay-100 relative overflow-hidden">
+            <div class="absolute -right-10 -top-10 w-32 h-32 bg-white/10 rounded-full blur-xl group-hover:scale-150 transition-transform duration-700"></div>
+            <div class="w-14 h-14 rounded-full bg-white text-m3-error flex items-center justify-center mb-5 group-hover:scale-110 transition-all shadow-md relative z-10">
+              <i data-lucide="flame" class="w-7 h-7"></i>
+            </div>
+            <h4 class="text-2xl font-black mb-3 relative z-10">كُفْر</h4>
+            <p class="opacity-95 font-amiri text-base leading-relaxed relative z-10">أقبح القول وأخطر المهلكات على الإطلاق؛ كلمة واحدة قد تهدم الدين وتخرج من دائرة الإيمان.</p>
+          </article>
+
+          <article class="bg-m3-surfaceContainerLow rounded-[28px] p-8 transition-all duration-300 hover:shadow-m3-3 hover:-translate-y-2 border border-m3-outline/10 group reveal delay-200 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-full h-1 bg-m3-outline/20 group-hover:bg-m3-primary transition-colors"></div>
+            <div class="w-14 h-14 rounded-full bg-m3-surfaceContainerHigh text-m3-onSurfaceVariant flex items-center justify-center mb-5 group-hover:scale-110 group-hover:text-stone-700 transition-all">
+              <i data-lucide="lock" class="w-7 h-7"></i>
+            </div>
+            <h4 class="text-2xl font-black text-m3-onSurface mb-3">ابْتِزَاز</h4>
+            <p class="text-m3-onSurfaceVariant font-amiri text-base leading-relaxed">استغلال أسرار الناس وخصوصياتهم لتهديدهم وتخويفهم؛ خيانة للأمانة وجريمة يعاقب عليها القانون.</p>
+          </article>
+
+          <article class="bg-m3-secondaryContainer rounded-[28px] p-8 transition-all duration-300 hover:shadow-m3-3 hover:-translate-y-2 border border-m3-secondary/20 group reveal delay-300 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-full h-1 bg-m3-secondary/40 group-hover:bg-m3-secondary transition-colors"></div>
+            <div class="w-14 h-14 rounded-full bg-m3-surface text-m3-secondary flex items-center justify-center mb-5 group-hover:scale-110 transition-all shadow-sm">
+              <i data-lucide="siren" class="w-7 h-7"></i>
+            </div>
+            <h4 class="text-2xl font-black text-m3-onSecondaryContainer mb-3">فِتْنَة</h4>
+            <p class="text-m3-onSecondaryContainer opacity-90 font-amiri text-base leading-relaxed">نقل الكلام بهدف الإيقاع بين الناس وتفريق صفوفهم؛ سعيٌ في الأرض بالفساد وإشعال لنار العداوة.</p>
+          </article>
+
+          <article class="bg-m3-surfaceContainerLow rounded-[28px] p-8 transition-all duration-300 hover:shadow-m3-3 hover:-translate-y-2 border border-m3-outline/10 group reveal delay-100 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-full h-1 bg-m3-outline/20 group-hover:bg-m3-primary transition-colors"></div>
+            <div class="w-14 h-14 rounded-full bg-m3-surfaceContainerHigh text-m3-onSurfaceVariant flex items-center justify-center mb-5 group-hover:scale-110 group-hover:text-blue-600 transition-all">
+              <i data-lucide="x-octagon" class="w-7 h-7"></i>
+            </div>
+            <h4 class="text-2xl font-black text-m3-onSurface mb-3">كَذِب</h4>
+            <p class="text-m3-onSurfaceVariant font-amiri text-base leading-relaxed">تزييف الحقائق وخيانة الصدق؛ مفتاح لكل شر ومفسدة، يهدم الثقة ويسقط مصداقية المتحدث.</p>
+          </article>
+
+          <article class="bg-m3-surfaceContainerLow rounded-[28px] p-8 transition-all duration-300 hover:shadow-m3-3 hover:-translate-y-2 border border-m3-outline/10 group reveal delay-200 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-full h-1 bg-m3-outline/20 group-hover:bg-m3-primary transition-colors"></div>
+            <div class="w-14 h-14 rounded-full bg-m3-surfaceContainerHigh text-m3-onSurfaceVariant flex items-center justify-center mb-5 group-hover:scale-110 group-hover:text-purple-600 transition-all">
+              <i data-lucide="user-x" class="w-7 h-7"></i>
+            </div>
+            <h4 class="text-2xl font-black text-m3-onSurface mb-3">غِيبَة</h4>
+            <p class="text-m3-onSurfaceVariant font-amiri text-base leading-relaxed">ذكرك أخاك بما يكره في غيابه؛ آفة خطيرة تأكل الحسنات وتورث الضغائن في الصدور.</p>
+          </article>
+
+          <article class="bg-m3-errorContainer rounded-[28px] p-8 transition-all duration-300 hover:shadow-m3-3 hover:-translate-y-2 border border-m3-error/20 group reveal delay-300 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-full h-1 bg-m3-error/50 group-hover:bg-m3-error transition-colors"></div>
+            <div class="w-14 h-14 rounded-full bg-m3-error text-m3-onError flex items-center justify-center mb-5 group-hover:scale-110 transition-all shadow-sm">
+              <i data-lucide="angry" class="w-7 h-7"></i>
+            </div>
+            <h4 class="text-2xl font-black text-m3-onErrorContainer mb-3">سَبّ</h4>
+            <p class="text-m3-onErrorContainer opacity-90 font-amiri text-base leading-relaxed">إطلاق الشتائم والألفاظ الجارحة التي تفسد الصحبة وتستجلب القطيعة والغضب.</p>
+          </article>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="hadith-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 modal-backdrop">
+    <div class="bg-m3-surfaceContainerLowest rounded-[32px] max-w-2xl w-full p-8 shadow-m3-4 transform scale-95 opacity-0 transition-all duration-300 border border-m3-surfaceContainerHighest" id="hadithModalContent">
+      
+      <div class="flex items-center justify-between mb-6 pb-4 border-b border-m3-surfaceContainerHigh">
+        <div class="flex items-center gap-4">
+          <div class="w-12 h-12 rounded-full bg-m3-primaryContainer text-m3-onPrimaryContainer flex items-center justify-center shadow-inner">
+            <i data-lucide="book-open" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <h3 class="text-2xl font-black text-m3-onSurface">الحديث الشريف</h3>
+            <p class="text-sm font-bold text-m3-primary mt-1">عن معاذ بن جبل رضي الله عنه</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="max-h-[60vh] overflow-y-auto pr-2 custom-scrollbar">
+        <div id="hadithText" class="text-lg text-m3-onSurfaceVariant leading-[2.2] font-amiri text-justify space-y-5">
+          <p>
+            كنتُ معَ النَّبيِّ صلَّى اللَّهُ علَيهِ وسلَّمَ في سفَرٍ ، فأصبَحتُ يومًا قريبًا منهُ ونحنُ نَسيرُ ، فقلتُ : يا رسولَ اللَّهِ أخبرني بعَمَلٍ يُدخِلُني الجنَّةَ ويباعِدُني من النَّارِ ، قالَ : لقد سألتَني عَن عظيمٍ ، وإنَّهُ ليسيرٌ على من يسَّرَهُ اللَّهُ علَيهِ ، تعبدُ اللَّهَ ولا تشرِكْ بِهِ شيئًا ، وتُقيمُ الصَّلاةَ ، وتُؤتي الزَّكاةَ ، وتصومُ رمضانَ ، وتحجُّ البيتَ.
+          </p>
+          <p>
+            ثمَّ قالَ : ألا أدلُّكَ على أبوابِ الخيرِ : الصَّومُ جُنَّةٌ ، والصَّدَقةُ تُطفي الخطيئةَ كما يُطفئُ الماءُ النَّارَ ، وصلاةُ الرَّجلِ من جوفِ اللَّيلِ. قالَ : ثمَّ تلا قوله تعالى : تَتَجَافَى جُنُوبُهُمْ عَنِ الْمَضَاجِعِ يَدْعُونَ رَبَّهُمْ ، حتَّى بلغَ يَعْمَلُونَ.
+          </p>
+          <p>
+            ثمَّ قالَ : ألا أخبرُكَ بِرَأسِ الأَمرِ كلِّهِ وعمودِهِ ، وذِروةِ سَنامِهِ ؟ قلتُ : بلى يا رسولَ اللَّهِ ، قالَ : رأسُ الأمرِ الإسلامُ ، وعمودُهُ الصَّلاةُ ، وذروةُ سَنامِهِ الجِهادُ.
+          </p>
+          <div class="bg-m3-tertiaryContainer/50 text-m3-onTertiaryContainer rounded-[20px] p-6 mt-6 border border-m3-tertiaryContainer">
+            <p>ثمَّ قالَ : ألا أخبرُكَ بملاكِ ذلِكَ كلِّهِ ؟ قُلتُ : بلَى يا رسولَ اللَّهِ ، قال : فأخذَ بلِسانِهِ وقالَ : كُفَّ عليكَ هذا ، فقُلتُ : يا نبيَّ اللَّهِ ، وإنَّا لمؤاخَذونَ بما نتَكَلَّمُ بِهِ ؟ فقالَ :</p>
+            <p class="font-black text-xl mt-4 text-m3-primary leading-loose text-center bg-white/50 p-4 rounded-xl shadow-sm">
+              « ثَكِلَتكَ أمُّكَ يا معاذُ، وهل يَكُبُّ النَّاسَ في النَّارِ على وجوهِهِم أو على مَناخرِهِم إلَّا حَصائدُ ألسنتِهِم »
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-8 pt-4 border-t border-m3-surfaceContainerHigh flex justify-end">
+        <button onclick="closeModal('hadith-modal','hadithModalContent')" class="px-8 py-3 rounded-full bg-m3-primary text-m3-onPrimary font-bold hover:shadow-m3-2 transition-all hover:-translate-y-1">
+          إغلاق
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <button id="fab-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="fixed bottom-8 left-8 w-14 h-14 bg-m3-primaryContainer text-m3-onPrimaryContainer rounded-[16px] shadow-m3-3 flex items-center justify-center transform translate-y-20 opacity-0 transition-all duration-500 hover:bg-m3-primary hover:text-m3-onPrimary hover:rounded-full z-40">
+    <i data-lucide="arrow-up" class="w-6 h-6"></i>
+  </button>
+
+  <footer id="footer-contact" class="bg-m3-inverseSurface text-m3-inverseOnSurface pt-20 pb-10 mt-10 rounded-t-[40px]">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-col items-center text-center">
+
+        <div class="mb-6">
+          <h3 class="text-3xl font-black mb-2 tracking-wide">جامعة تكريت</h3>
+          <p class="text-m3-primaryContainer opacity-90 font-bold">فريق حملة مراعاة الألفاظ</p>
+        </div>
+
+        <p class="max-w-md mb-10 text-base leading-relaxed opacity-70 font-amiri">
+          للانضمام إلى المبادرة أو للاستفسارات، يمكنكم التواصل معنا عبر حسابنا الرسمي. كن جزءاً من التغيير الإيجابي.
+        </p>
+
+        <div class="flex gap-4 mb-12">
+          <a href="https://www.instagram.com/tusa_t1" target="_blank" rel="noopener noreferrer" class="w-14 h-14 rounded-full flex items-center justify-center bg-white/5 hover:bg-white/15 hover:text-[#E1306C] hover:-translate-y-2 transition-all duration-300 shadow-lg" title="Instagram">
+            <i data-lucide="instagram" class="w-6 h-6"></i>
+          </a>
+        </div>
+
+        <div class="w-full max-w-2xl h-px bg-white/10 mb-8"></div>
+
+        <p class="text-sm opacity-50 font-mono tracking-wider">
+          تمت المبادرة والبرمجة بالتعاون مع فريق عمل الحملة | &copy; 2026 جامعة تكريت
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const hadithModal = document.getElementById("hadith-modal");
+    const hadithModalContent = document.getElementById("hadithModalContent");
+    const fabTop = document.getElementById("fab-top");
+
+    function scrollToSection(id) {
+      const element = document.getElementById(id);
+      if (element) { element.scrollIntoView({ behavior: "smooth" }); }
+    }
+
+    // Header scroll effect & FAB visibility
+    document.addEventListener("scroll", () => {
+      const header = document.getElementById("main-header");
+      if (window.scrollY > 20) { 
+        header.classList.add("scrolled"); 
+      } else { 
+        header.classList.remove("scrolled"); 
+      }
+
+      if (window.scrollY > 500) {
+        fabTop.classList.remove("translate-y-20", "opacity-0");
+      } else {
+        fabTop.classList.add("translate-y-20", "opacity-0");
+      }
+    });
+
+    function openModal(modalElement, contentElement) {
+      modalElement.classList.remove("hidden");
+      modalElement.classList.add("flex");
+      setTimeout(() => {
+        contentElement.classList.remove("scale-95", "opacity-0");
+        contentElement.classList.add("scale-100", "opacity-100");
+      }, 10);
+    }
+
+    function closeModal(modalId, contentId) {
+      const modalToClose = document.getElementById(modalId);
+      const contentToClose = document.getElementById(contentId);
+      contentToClose.classList.remove("scale-100", "opacity-100");
+      contentToClose.classList.add("scale-95", "opacity-0");
+      setTimeout(() => {
+        modalToClose.classList.remove("flex");
+        modalToClose.classList.add("hidden");
+      }, 300);
+    }
+
+    function openHadithModal() { openModal(hadithModal, hadithModalContent); }
+
+    document.querySelectorAll(".modal-backdrop").forEach((m) => {
+      m.addEventListener("click", (e) => {
+        if (e.target.classList.contains("modal-backdrop")) {
+          if (e.target.id === "hadith-modal") closeModal("hadith-modal", "hadithModalContent");
+        }
+      });
+    });
+  </script>
+</body>
+</html>
